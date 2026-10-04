@@ -4,6 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
+const reviewRoutes = require('./routes/reviewRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const initSocket = require('./config/socket');
 const chatRoutes = require('./routes/chatRoutes');
 const aiRoutes = require('./routes/aiRoutes');
@@ -31,6 +33,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Test route
 app.get('/api', (req, res) => {
