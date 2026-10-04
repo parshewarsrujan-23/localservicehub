@@ -4,6 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
+const initSocket = require('./config/socket');
+const chatRoutes = require('./routes/chatRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -17,6 +19,7 @@ const app = express();
 
 // Create HTTP server (required for Socket.io later)
 const server = http.createServer(app);
+initSocket(server);
 
 // Middlewares
 app.use(cors());
@@ -27,6 +30,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Test route
 app.get('/api', (req, res) => {
