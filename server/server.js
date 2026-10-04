@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
+const bookingRoutes = require('./routes/bookingRoutes');
 const userRoutes = require('./routes/userRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 const authRoutes = require('./routes/authRoutes');
@@ -23,6 +24,7 @@ app.use(express.json()); // Parse incoming JSON requests
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Test route
 app.get('/api', (req, res) => {
