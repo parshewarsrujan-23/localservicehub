@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import Home from './pages/customer/Home';
 import Booking from './pages/customer/Booking';
+import MyBookings from './pages/customer/MyBookings';
 
 // Pages
 import Login from './pages/shared/Login';
@@ -33,7 +34,7 @@ function App() {
 <Route element={<ProtectedRoute allowedRoles={['customer']} />}>
   <Route path="/" element={<Home />} />
   <Route path="/book/:providerId" element={<Booking />} />
-  <Route path="/customer/bookings" element={<div className="p-8 text-center text-xl font-medium">My Bookings (Coming Soon)</div>} />
+  <Route path="/customer/bookings" element={<MyBookings />} />
 </Route>
 
                 {/* Protected Provider Routes */}
