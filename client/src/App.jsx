@@ -8,6 +8,7 @@ import Home from './pages/customer/Home';
 import Booking from './pages/customer/Booking';
 import MyBookings from './pages/customer/MyBookings';
 import Chat from './pages/shared/Chat';
+import ProviderDashboard from './pages/provider/ProviderDashboard';
 
 // Pages
 import Login from './pages/shared/Login';
@@ -40,7 +41,7 @@ function App() {
 
                 {/* Protected Provider Routes */}
                 <Route element={<ProtectedRoute allowedRoles={['provider']} />}>
-                  <Route path="/provider" element={<ProviderPlaceholder />} />
+                  <Route path="/provider" element={<ProviderDashboard />} />
                 </Route>
 
                 <Route element={<ProtectedRoute allowedRoles={['customer', 'provider']} />}>
