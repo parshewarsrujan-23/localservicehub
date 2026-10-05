@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './components/common/Toast';
 import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/layout/ProtectedRoute';
+import Home from './pages/customer/Home';
 
 // Pages
 import Login from './pages/shared/Login';
@@ -29,7 +30,7 @@ function App() {
                 
                 {/* Protected Customer Routes */}
                 <Route element={<ProtectedRoute allowedRoles={['customer']} />}>
-                  <Route path="/" element={<HomePlaceholder />} />
+                  <Route path="/" element={<Home />} />
                 </Route>
 
                 {/* Protected Provider Routes */}
