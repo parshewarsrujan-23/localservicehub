@@ -6,26 +6,39 @@ const User = require('../models/User');
 // @access  Private (Customer only)
 const createBooking = async (req, res, next) => {
   try {
-    const { providerId, category, description, address, area, scheduledDate, scheduledTime } = req.body;
+    console.log('BODY:', req.body);
+    console.log('FILES:', req.files ? req.files.length : 0);
 
-    // Verify provider exists and is verified
-    const provider = await User.findOne({ _id: providerId, role: 'provider', isVerified: true });
+    const providerId = req.body.provider || req.body.providerId;
+    const { category, description, address, area, scheduledDate, scheduledTime } = req.body;
+
+    if (!providerId || !providerId.match(/^[0-9a-fA-F]{24}$/)) {
+      res.status(400);
+      throw new Error(`Invalid provider id received: ${providerId}`);
+    }
+
+    const provider = await User.findById(providerId);
+    console.log('PROVIDER FOUND:', provider ? provider.email : null);
+
     if (!provider) {
-      return res.status(404).json({ message: 'Provider not found or not verified' });
+      res.status(404);
+      throw new Error('Provider not found');
+    }
+    if (provider.role !== 'provider') {
+      res.status(400);
+      throw new Error('This user is not a provider');
+    }
+    if (!provider.isVerified) {
+      res.status(400);
+      throw new Error('Provider is not verified yet');
     }
 
-    // Extract Cloudinary URLs from multer files array
-    const problemImages = [];
-    if (req.files && req.files.length > 0) {
-      req.files.forEach(file => {
-        problemImages.push(file.path);
-      });
-    }
+    const problemImages = (req.files || []).map((f) => f.path);
 
     const booking = await Booking.create({
       customer: req.user._id,
-      provider: providerId,
-      category,
+      provider: provider._id,
+      category: (category || provider.category).toLowerCase(),
       description,
       problemImages,
       address,

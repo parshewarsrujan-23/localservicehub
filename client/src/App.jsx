@@ -5,6 +5,7 @@ import { ToastProvider } from './components/common/Toast';
 import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import Home from './pages/customer/Home';
+import Booking from './pages/customer/Booking';
 
 // Pages
 import Login from './pages/shared/Login';
@@ -29,9 +30,11 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 
                 {/* Protected Customer Routes */}
-                <Route element={<ProtectedRoute allowedRoles={['customer']} />}>
-                  <Route path="/" element={<Home />} />
-                </Route>
+<Route element={<ProtectedRoute allowedRoles={['customer']} />}>
+  <Route path="/" element={<Home />} />
+  <Route path="/book/:providerId" element={<Booking />} />
+  <Route path="/customer/bookings" element={<div className="p-8 text-center text-xl font-medium">My Bookings (Coming Soon)</div>} />
+</Route>
 
                 {/* Protected Provider Routes */}
                 <Route element={<ProtectedRoute allowedRoles={['provider']} />}>
