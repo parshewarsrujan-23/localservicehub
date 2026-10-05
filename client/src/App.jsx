@@ -7,6 +7,7 @@ import ProtectedRoute from './components/layout/ProtectedRoute';
 import Home from './pages/customer/Home';
 import Booking from './pages/customer/Booking';
 import MyBookings from './pages/customer/MyBookings';
+import Chat from './pages/shared/Chat';
 
 // Pages
 import Login from './pages/shared/Login';
@@ -40,6 +41,10 @@ function App() {
                 {/* Protected Provider Routes */}
                 <Route element={<ProtectedRoute allowedRoles={['provider']} />}>
                   <Route path="/provider" element={<ProviderPlaceholder />} />
+                </Route>
+
+                <Route element={<ProtectedRoute allowedRoles={['customer', 'provider']} />}>
+                  <Route path="/chat/:bookingId" element={<Chat />} />
                 </Route>
 
                 {/* Protected Admin Routes */}
